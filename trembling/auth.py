@@ -5,6 +5,8 @@ random = SystemRandom()
 
 from mongoengine import Document, StringField
 
+from trembling.session import SESSION_COOKIE_NAME
+
 SALT_LENGTH = 23
 SALT_CHARACTERS = string.ascii_letters + string.digits
 AUTH_SESSION_KEY = "auth_user_id"
@@ -52,8 +54,14 @@ def login(request, username, password):
     return False
 
 
+def logout(request):
+    '''Ensure that no user session data is attached to the request.'''
+    key = request.session[SESSION_COOKIE_NAME]
+    request.session = {SESSION_COOKIE_NAME: key}
+
+
 def inbound(request):
-    '''Attach a User object to the request if the user id is logged in'''
+    '''Attach a User object to every request if the user id is logged in'''
     request.user = None
     request.authenticated = False
     if 'auth_user_id' in request.session:

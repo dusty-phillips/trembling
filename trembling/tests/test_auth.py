@@ -1,4 +1,4 @@
-from trembling.auth import User, inbound, login
+from trembling.auth import User, inbound, login, logout
 from mock import Mock
 from aspen import Response
 
@@ -52,3 +52,11 @@ def test_login_fail(mongodb, user, request):
 def test_login_user_not_exist(mongodb, user, request):
     assert not login(request, "Edgar", "edgar doesnt exist")
     assert 'auth_user_id' not in request.session
+
+
+def test_logout(mongodb, user, request):
+    login(request, "Paul", "paul has a good password")
+    session_key = request.session['session_key']
+    request.session['paulsdata'] = "something secret and important"
+    logout(request)
+    assert request.session == {'session_key': session_key}
