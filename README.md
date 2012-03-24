@@ -21,7 +21,6 @@ your Aspen [hooks.conf](http://aspen.io/hooks/) look something like this:
 
     ^L
     # Outbound Late Hooks
-    trembling.auth:outbound
     trembling.session:outbound
 
     ^L
