@@ -17,7 +17,7 @@ class Session(Document):
         required=True, unique=True)
     data = BinaryField()
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return self.session_key
 
     @staticmethod
