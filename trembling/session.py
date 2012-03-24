@@ -17,6 +17,9 @@ class Session(Document):
         required=True, unique=True)
     data = BinaryField()
 
+    def __str__(self):
+        return self.session_key
+
     @staticmethod
     def create_new_session():
         while True:
@@ -39,7 +42,7 @@ def inbound(request):
     else:
         session = None
     if session:
-        session = session[0]  # objects returns a list
+        session = session[0]
     else:
         session = Session.create_new_session()
 
