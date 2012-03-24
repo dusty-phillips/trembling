@@ -22,10 +22,7 @@ class User(Document):
         hasher = hashlib.sha512()
         hasher.update(salt)
         hasher.update(password)
-        print salt
-        print password
         self.password_hash = "%s$%s" % (salt, hasher.hexdigest())
-        print self.password_hash
 
     def check_password(self, password):
         salt, hashed = self.password_hash.split("$")
