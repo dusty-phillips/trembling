@@ -1,4 +1,5 @@
-import random
+from random import SystemRandom
+random = SystemRandom()
 import string
 import cPickle as pickle
 
