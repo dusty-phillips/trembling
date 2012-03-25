@@ -52,7 +52,10 @@ to access user data. The auth module also contains login, logout, and login_requ
 * logout(request)
 * login_required(request, "/login/page.html")
 
-The latter will raise an appropriate redirect response if the user is not authenticated.
+The latter will raise an appropriate redirect response if the user is not
+authenticated. If you do not specify a redirect url, it will redirect to
+trembling.auth.LOGIN_URL. This defaults to /account/login.html, or you can set
+it to a string of your choice in an aspen startup hook.
 
 For an example of how these modules can be used in practice, see
 [Todoy](https://github.com/buchuki/Todoy)

@@ -67,12 +67,18 @@ def test_logout(mongodb, user, request):
 def test_login_required(mongodb, request):
     inbound(request)
     with raises(Redirect) as exc:
-        login_required(request, "/accounts/login.html")
-    assert exc.value.headers.one("Location") == "/accounts/login.html"
+        login_required(request, "/login.html")
+    assert exc.value.headers.one("Location") == "/login.html"
 
 
 def test_authenticated_user_passes(mongodb, user, request):
     request.session['auth_user_id'] = "Paul"
     inbound(request)
-    login_required(request, "/accounts/login.html")
+    login_required(request, "/login.html")
     # If we got this far, great!
+
+def test_login_required_no_url(mongodb, request):
+    inbound(request)
+    with raises(Redirect) as exc:
+        login_required(request)
+    assert exc.value.headers.one("Location") == "/account/login.html"

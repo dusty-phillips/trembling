@@ -11,6 +11,7 @@ from trembling import Redirect
 SALT_LENGTH = 23
 SALT_CHARACTERS = string.ascii_letters + string.digits
 AUTH_SESSION_KEY = "auth_user_id"
+LOGIN_URL = "/account/login.html"
 
 
 class User(Document):
@@ -58,10 +59,12 @@ def logout(request):
     request.session = {SESSION_COOKIE_NAME: key}
 
 
-def login_required(request, login_url):
+def login_required(request, login_url=None):
     '''if a user is not logged in, redirect to the login url.
     Assumes that inbound has already been called on the request.'''
     if not request.authenticated:
+        if login_url is None:
+            login_url = LOGIN_URL
         raise Redirect(login_url)
     else:
         return True
