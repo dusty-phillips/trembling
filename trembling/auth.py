@@ -6,6 +6,7 @@ random = SystemRandom()
 from mongoengine import Document, StringField
 
 from trembling.session import SESSION_COOKIE_NAME
+from trembling import Redirect
 
 SALT_LENGTH = 23
 SALT_CHARACTERS = string.ascii_letters + string.digits
@@ -55,6 +56,15 @@ def logout(request):
     '''Ensure that no user session data is attached to the request.'''
     key = request.session[SESSION_COOKIE_NAME]
     request.session = {SESSION_COOKIE_NAME: key}
+
+
+def login_required(request, login_url):
+    '''if a user is not logged in, redirect to the login url.
+    Assumes that inbound has already been called on the request.'''
+    if not request.authenticated:
+        raise Redirect(login_url)
+    else:
+        return True
 
 
 def inbound(request):

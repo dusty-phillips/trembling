@@ -46,8 +46,13 @@ minimum it'll look something like this:
 Authenticating
 --------------
 There is a `trembling.auth.User` mongoengine document that you can use
-to access user data. The auth module also contains login and logout
-methods. Call them from your simplate with login(request, username, password) and logout(request).
+to access user data. The auth module also contains login, logout, and login_required methods. Call them from your simplate as
+
+* login(request, username, password)
+* logout(request)
+* login_required(request, "/login/page.html")
+
+The latter will raise an appropriate redirect response if the user is not authenticated.
 
 For an example of how these modules can be used in practice, see
 [Todoy](https://github.com/buchuki/Todoy)

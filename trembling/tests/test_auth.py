@@ -1,5 +1,7 @@
-from trembling.auth import User, inbound, login, logout
+from trembling import Redirect
+from trembling.auth import User, inbound, login, logout, login_required
 from mock import Mock
+from py.test import raises
 from aspen import Response
 
 
@@ -60,3 +62,17 @@ def test_logout(mongodb, user, request):
     request.session['paulsdata'] = "something secret and important"
     logout(request)
     assert request.session == {'session_key': session_key}
+
+
+def test_login_required(mongodb, request):
+    inbound(request)
+    with raises(Redirect) as exc:
+        login_required(request, "/accounts/login.html")
+    assert exc.value.headers.one("Location") == "/accounts/login.html"
+
+
+def test_authenticated_user_passes(mongodb, user, request):
+    request.session['auth_user_id'] = "Paul"
+    inbound(request)
+    login_required(request, "/accounts/login.html")
+    # If we got this far, great!
