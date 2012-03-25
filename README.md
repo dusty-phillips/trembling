@@ -1,9 +1,16 @@
 TREMBLING ASPEN
 ===============
 
-These are session and authentication modules for the [Aspen](http://aspen.io/) web framework.
-They use mongo_engine for storage. To use, ensure trembling is on your path and make
-your Aspen [hooks.conf](http://aspen.io/hooks/) look something like this:
+This module contains some standard web framework functionality intended to integrate with the [Aspen](http://aspen.io/) web framework. Aspen does not currently include these features, so I've created basic implementations of them:
+
+* Sessions
+* Authentication
+* simple redirect class
+
+
+The session and auth implementations use mongo_engine for storage. To use them, ensure
+trembling is on your path and make your Aspen
+[hooks.conf](http://aspen.io/hooks/) look something like this:
 
     # Startup Hooks
     database:startup
@@ -35,6 +42,19 @@ minimum it'll look something like this:
 
     def startup(website):
         website.db = connect("MY_DB_NAME")
+
+Authenticating
+--------------
+There is a `trembling.auth.User` mongoengine document that you can use
+to access user data. The auth module also contains login and logout
+methods. Call them from your simplate with login(request, username, password) and logout(request).
+
+For an example of how these modules can be used in practice, see
+[Todoy](https://github.com/buchuki/Todoy)
+
+Redirect
+--------
+If you want to redirect 
 
 
 TESTING
