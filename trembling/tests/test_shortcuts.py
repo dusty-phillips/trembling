@@ -1,4 +1,4 @@
-from trembling.shortcuts import Redirect
+from trembling import Redirect
 
 def test_redirect():
     response = Redirect("/")
