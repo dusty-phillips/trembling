@@ -54,7 +54,7 @@ For an example of how these modules can be used in practice, see
 
 Redirect
 --------
-If you want to redirect 
+If you want to redirect, raise the trembling.Redirect("url") response. It's a thin wrapper around Response .
 
 
 TESTING
