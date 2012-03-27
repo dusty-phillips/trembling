@@ -5,7 +5,7 @@ setup(name='trembling',
     author="Dusty Phillips",
     author_email="dusty@buchuki.com",
     packages=find_packages('.'),
-    long_description=open("README").read(),
+    long_description=open("README.md").read(),
     package_dir={'trembling': 'trembling'},
 )
 
