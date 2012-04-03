@@ -4,6 +4,7 @@ TREMBLING ASPEN
 This module contains some standard web framework functionality intended to integrate with the [Aspen](http://aspen.io/) web framework. Aspen does not currently include these features, so I've created basic implementations of them:
 
 * Sessions
+* Single Request Messages
 * Authentication
 * simple redirect class
 
@@ -63,6 +64,13 @@ For an example of how these modules can be used in practice, see
 Redirect
 --------
 If you want to redirect, raise the trembling.Redirect("url") response. It's a thin wrapper around Response .
+
+Messages
+--------
+If you put something in request.session['messages'] it will automatically be
+popped and submitted as request.messages in the following request. Note that
+it doesn't currently do any handling of combining multiple messages into a list
+or anything like that.
 
 
 TESTING

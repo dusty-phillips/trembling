@@ -53,6 +53,11 @@ def inbound(request):
     else:
         data = {"session_key": session.session_key}
 
+    if 'messages' in data:
+        request.messages = data.pop('messages')
+    else:
+        request.messages = None
+
     request.session = data
 
 
