@@ -1,7 +1,5 @@
 from trembling.auth import User, inbound, login, logout, login_required
 from mock import Mock
-from py.test import raises
-from aspen import Response
 
 
 def pytest_funcarg__request(request):
