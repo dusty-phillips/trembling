@@ -6,7 +6,6 @@ random = SystemRandom()
 from mongoengine import Document, StringField
 
 from trembling.session import SESSION_COOKIE_NAME
-from trembling import Redirect
 
 SALT_LENGTH = 23
 SALT_CHARACTERS = string.ascii_letters + string.digits
@@ -65,7 +64,7 @@ def login_required(request, login_url=None):
     if not request.authenticated:
         if login_url is None:
             login_url = LOGIN_URL
-        raise Redirect(login_url)
+        request.redirect(login_url)
     else:
         return True
 

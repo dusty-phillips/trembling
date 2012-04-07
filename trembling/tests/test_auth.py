@@ -1,4 +1,3 @@
-from trembling import Redirect
 from trembling.auth import User, inbound, login, logout, login_required
 from mock import Mock
 from py.test import raises
@@ -66,9 +65,8 @@ def test_logout(mongodb, user, request):
 
 def test_login_required(mongodb, request):
     inbound(request)
-    with raises(Redirect) as exc:
-        login_required(request, "/login.html")
-    assert exc.value.headers.one("Location") == "/login.html"
+    login_required(request, "/login.html")
+    request.redirect.assert_called_with('/login.html')
 
 
 def test_authenticated_user_passes(mongodb, user, request):
@@ -77,8 +75,8 @@ def test_authenticated_user_passes(mongodb, user, request):
     login_required(request, "/login.html")
     # If we got this far, great!
 
+
 def test_login_required_no_url(mongodb, request):
     inbound(request)
-    with raises(Redirect) as exc:
-        login_required(request)
-    assert exc.value.headers.one("Location") == "/account/login.html"
+    login_required(request)
+    request.redirect.assert_called_with('/account/login.html')

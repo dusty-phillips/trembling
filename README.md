@@ -6,8 +6,6 @@ This module contains some standard web framework functionality intended to integ
 * Sessions
 * Single Request Messages
 * Authentication
-* simple redirect class
-
 
 The session and auth implementations use mongo_engine for storage. To use them, ensure
 trembling is on your path and make your Aspen
@@ -61,17 +59,12 @@ it to a string of your choice in an aspen startup hook.
 For an example of how these modules can be used in practice, see
 [Todoy](https://github.com/buchuki/Todoy)
 
-Redirect
---------
-If you want to redirect, raise the trembling.Redirect("url") response. It's a thin wrapper around Response .
-
 Messages
 --------
 If you put something in request.session['messages'] it will automatically be
 popped and submitted as request.messages in the following request. Note that
 it doesn't currently do any handling of combining multiple messages into a list
 or anything like that.
-
 
 TESTING
 -------
